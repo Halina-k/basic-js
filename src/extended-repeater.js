@@ -17,31 +17,33 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function repeater(str, options) {
   str = String(str);
-  addition = String(options.addition) || '';
-  repeatTimes = options.repeatTimes || 0;
-  additionRepeatTimes = options.additionRepeatTimes || 0;
+  if (options.addition !== undefined) {
+    addition = String(options.addition)
+  } else {
+    addition = '';
+  }
+  repeatTimes = options.repeatTimes || 1;
+  additionRepeatTimes = options.additionRepeatTimes || 1;
   separator = options.separator || '+';
   additionSeparator = options.additionSeparator || '|';
 
 
   let result = []
   let podresult = []
-  for (i = 0; i < additionRepeatTimes; i++) {
+  for (let i = 0; i < additionRepeatTimes; i++) {
     podresult.push(addition)
-    podresult.push(additionSeparator)
   }
-  podresult.pop()
-  podresult = podresult.join('')
 
-  for (i = 0; i < repeatTimes; i++) {
+  podresult = podresult.join(`${additionSeparator}`)
+
+  for (let i = 0; i < repeatTimes; i++) {
     result.push(str)
     result.push(podresult)
     result.push(separator)
   }
   result.pop()
-  result = result.join('')
-  return result
-
+  result = result
+  return result.join('')
 }
 
 module.exports = {
